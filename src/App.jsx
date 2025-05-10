@@ -1,8 +1,7 @@
-// src/App.jsx
-
 import { useState } from 'react';
 import './App.css';
 import IngredientList from './components/IngredientList/IngredientList';
+import BurgerStack from './components/BurgerStack/BurgerStack';
 
 
 const App = () => {
@@ -25,13 +24,21 @@ const App = () => {
     { name: 'Swiss Cheese', color: '#F1E1A8' },
   ];
 
+  const removeIngredient = (indexToRemove) => {
+    setStack(stack.filter((_, index) => index !== indexToRemove));
+  };
+  
+
   return (
     <>
     <main>
       <h1>Burger Stacker</h1>
       <section>
-      <IngredientList ingredient={ingredients} />  
-      <BurgerStack />      
+      <IngredientList 
+  ingredients={availableIngredients} 
+  onAddIngredient={(ingredient) => setStack([ingredient, ...stack])}
+/>
+      <BurgerStack stack={stack} onRemoveIngredient={removeIngredient} />
       </section>
     </main>
     </>
